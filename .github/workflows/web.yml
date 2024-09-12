@@ -21,10 +21,10 @@ jobs:
       # - run: pnpm run deploy
       - name: Deploy
         env:
-          MY_EMAIL: g
-          MY_NAME: g
+          MY_EMAIL: deploymentemail
+          MY_NAME: deploymentuser
         run: |
           git config --global user.email $MY_EMAIL
           git config --global user.name $MY_NAME
-          git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/greysmm/greysmm.github.io.git
+          git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
           pnpm run deploy
