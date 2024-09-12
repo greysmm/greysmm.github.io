@@ -18,7 +18,4 @@ jobs:
           version: 8
           run_install: false
       - run: pnpm predeploy
-      - uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./apps/main/dist
+      - run: pnpm run deploy
