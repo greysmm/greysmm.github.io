@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      - name: Predeploy
+        run: pnpm predeploy
+      - name: Deploy
+        env:
+          MY_EMAIL: deploymentemail
+          MY_NAME: deploymentuser
+        run: |
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
+          git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
+          pnpm gh-pages -d ./apps/main/dist
