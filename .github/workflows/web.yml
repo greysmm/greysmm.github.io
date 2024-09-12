@@ -18,4 +18,13 @@ jobs:
           version: 8
           run_install: false
       - run: pnpm predeploy
-      - run: pnpm run deploy
+      # - run: pnpm run deploy
+      - name: Deploy
+        env:
+          MY_EMAIL: g
+          MY_NAME: g
+        run: |
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
+          git remote set-url origin https://$MY_NAME:${{ secrets.GH_SECRET }}@github.com/greysmm/greysmm.github.io.git
+          pnpm run deploy
