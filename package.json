@@ -1,0 +1,27 @@
+{
+  "name": "greysmm.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
+    "dev": "pnpm --filter @greysmm.github.io/main dev",
+    "predeploy": "pnpm install && pnpm --filter @greysmm.github.io/shared run build && pnpm --filter @greysmm.github.io/main run build",
+    "deploy": "gh-pages -d ./apps/main/dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/node": "^22.5.4",
+    "eslint": "^9.10.0",
+    "eslint-plugin-react": "^7.35.2",
+    "gh-pages": "^6.1.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.5.0"
+  }
+}
