@@ -7,7 +7,7 @@ type ButtonProps = React.ComponentProps<"button"> & {
 export const DivButton = ({ children, ...props }: ButtonProps) => {
   return (
     <div className="p-20">
-      <button className="bg-red-500" {...props}>
+      <button className="bg-blue-500" {...props}>
         {children}
       </button>
     </div>

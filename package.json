@@ -6,8 +6,7 @@
   "scripts": {
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
     "dev": "pnpm --filter @greysmm.github.io/main dev",
-    "predeploy": "pnpm install && pnpm --filter @greysmm.github.io/shared run build && pnpm --filter @greysmm.github.io/main run build",
-    "deploy": "gh-pages -d ./apps/main/dist"
+    "predeploy": "pnpm install && pnpm --filter @greysmm.github.io/shared run build && pnpm --filter @greysmm.github.io/main run build"
   },
   "keywords": [],
   "author": "",
