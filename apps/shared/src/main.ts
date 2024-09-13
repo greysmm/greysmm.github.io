@@ -1,1 +1,1 @@
-export { DivButton } from "./components/DivButton";
+export { Page } from "./components/Page";
