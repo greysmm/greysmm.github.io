@@ -27,4 +27,5 @@ jobs:
           git config --global user.email $MY_EMAIL
           git config --global user.name $MY_NAME
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
+          cp ./apps/main/dist/index.html ./apps/main/dist/404.html
           pnpm gh-pages -d ./apps/main/dist
