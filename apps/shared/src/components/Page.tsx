@@ -7,8 +7,8 @@ type Props = React.ComponentProps<"div"> & {
 const NavBar = () => {
   const locArr: { icon?: any; label?: string; link: string }[] = [
     { label: "Home", link: "/" },
-    { label: "Projects", link: "/projects" },
-    { label: "About", link: "/about" },
+    { label: "Projects", link: "/#/projects" },
+    { label: "About", link: "/#/about" },
   ];
   return (
     <div className="flex pl-4 py-4 border border-white">
