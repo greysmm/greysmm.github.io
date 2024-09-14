@@ -1,6 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
 name: Deploy
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 on:
   push:
     branches: [ "main" ]
@@ -51,3 +57,12 @@ jobs:
           git config --global user.name "deployment"
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
           pnpm gh-pages -d ./apps/${{ matrix.value }}/dist -b deploy-${{ matrix.value }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './apps/${{ matrix.value }}/dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
