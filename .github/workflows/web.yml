@@ -9,23 +9,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  predeploy:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.workspaces }}
     steps:
+      - id: matrix
+        run: echo "workspaces=[$(ls apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
-      - name: Predeploy
-        run: pnpm predeploy
-      - name: Deploy
-        env:
-          MY_EMAIL: deployment
-          MY_NAME: deployment
-        run: |
-          git config --global user.email $MY_EMAIL
-          git config --global user.name $MY_NAME
+      - run: pnpm install
+      - run: pnpm --filter @greysmm.github.io/shared run build
+      - run: pnpm --filter @greysmm.github.io/core run build
+      - run: |
+          git config --global user.email "deployment"
+          git config --global user.name "deployment"
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
-          cp ./apps/main/dist/index.html ./apps/main/dist/404.html
-          pnpm gh-pages -d ./apps/main/dist -b deploy
+          cp ./apps/core/dist/index.html ./apps/core/dist/404.html
+          pnpm gh-pages -d ./apps/core/dist -b core
+  build:
+    needs: [ predeploy ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+    steps:
+      - run: echo "${{ matrix.value }}"
