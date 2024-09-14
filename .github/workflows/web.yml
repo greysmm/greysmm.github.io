@@ -16,7 +16,7 @@ jobs:
     steps:
       - id: matrix
         run: echo "values=[$(ls apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.matrix.outputs.value }}"
+      - run: echo "${{ steps.matrix.outputs.values }}"
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
