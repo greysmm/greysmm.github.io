@@ -9,10 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/node": "^22.5.4",
@@ -32,5 +28,9 @@
     "vite-plugin-dts": "^4.2.1"
   },
   "main": "dist/shared.js",
-  "types": "dist/src/main.d.ts"
+  "types": "dist/src/main.d.ts",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }

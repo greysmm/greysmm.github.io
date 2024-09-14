@@ -1,20 +1,33 @@
-import GmmLogo from "../assets/gmm_logo.svg";
+import { useState } from "react";
+import DarkSvg from "../assets/dark.svg";
+import LightSvg from "../assets/light.svg";
+import MoonSvg from "../assets/moon.svg";
+import SunSvg from "../assets/sun.svg";
 
 type Props = React.ComponentProps<"div"> & {
   children: React.ReactNode;
 };
 
+const locArr: { icon?: any; label?: string; link: string }[] = [
+  { label: "Home", link: "greysmm.github.io/#" },
+  { label: "Projects", link: "greysmm.github.io/#/projects" },
+  { label: "About", link: "greysmm.github.io/#/about" },
+];
+
 const NavBar = () => {
-  const locArr: { icon?: any; label?: string; link: string }[] = [
-    { label: "Home", link: "/" },
-    { label: "Projects", link: "/#/projects" },
-    { label: "About", link: "/#/about" },
-  ];
+  const [darkmode, setDarkmode] = useState<boolean | undefined>();
+  if (
+    darkmode === undefined &&
+    window.localStorage.getItem("theme") === "dark"
+  ) {
+    setDarkmode(true);
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
   return (
-    <div className="flex p-4 border border-white">
+    <div className="flex p-4 border-theme">
       <a href="https://github.com/greysmm/greysmm.github.io">
         <img
-          src={GmmLogo}
+          src={darkmode ? DarkSvg : LightSvg}
           width={270}
           height={75}
           alt="Grey's Magnificent Monorepo"
@@ -22,10 +35,33 @@ const NavBar = () => {
       </a>
       <div className="flex justify-end w-full">
         {locArr.map((item, index) => (
-          <a className="mx-4 h-full flex items-center" key={"navitem_" + index} href={item.link}>
+          <a
+            className="mx-4 h-full flex items-center"
+            key={"navitem_" + index}
+            href={item.link}
+          >
             <div className="">{item.label}</div>
           </a>
         ))}
+        <button
+          className="mx-4 h-full flex items-center"
+          onClick={() => {
+            document.documentElement.setAttribute(
+              "data-theme",
+              darkmode ? "light" : "dark",
+            );
+            window.localStorage.setItem("theme", darkmode ? "light" : "dark");
+            setDarkmode(!darkmode);
+          }}
+        >
+          <img
+            src={darkmode ? MoonSvg : SunSvg}
+            width={40}
+            height={40}
+            style={{ minWidth: "20px" }}
+            alt="Theme"
+          />
+        </button>
       </div>
     </div>
   );
@@ -33,9 +69,9 @@ const NavBar = () => {
 
 export const Page = ({ children, ...props }: Props) => {
   return (
-    <div>
+    <div className="p-4 h-full min-h-screen everything">
       <NavBar />
-      <div className="p-4 text-center" {...props}>
+      <div className="p-4 mt-4 text-center border-theme" {...props}>
         {children}
       </div>
     </div>

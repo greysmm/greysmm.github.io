@@ -9,9 +9,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: #ffffff;
-  background-color: #000000;
+  --color: #000000;
+  --bg-color: #ffffff;
+  color: var(--color);
+  background-color: var(--bg-color);
   --secondary-color: #4400ff;
   --tertiary-color: #ff0000;
 
@@ -21,12 +22,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.bg-sec {
-  background-color: var(--secondary-color);
+[data-theme="dark"] {
+  --color: #ffffff;
+  --bg-color: #000000;
 }
 
-.bg-ter {
-  background-color: var(--tertiary-color);
+.everything {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.border-theme {
+  border-color: var(--color);
+  border-width: 2px;
 }
 
 .Landing {
