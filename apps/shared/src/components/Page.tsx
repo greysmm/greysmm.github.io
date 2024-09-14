@@ -16,6 +16,7 @@ const locArr: { icon?: any; label?: string; link: string }[] = [
 
 const NavBar = () => {
   const [darkmode, setDarkmode] = useState<boolean | undefined>();
+  const spacing = window.innerWidth < 600 ? "mx-2" : "mx-4";
   if (
     darkmode === undefined &&
     window.localStorage.getItem("theme") === "dark"
@@ -36,7 +37,7 @@ const NavBar = () => {
       <div className="flex justify-end w-full">
         {locArr.map((item, index) => (
           <a
-            className="mx-4 h-full flex items-center"
+            className={spacing + " h-full flex items-center"}
             key={"navitem_" + index}
             href={item.link}
           >
@@ -44,7 +45,7 @@ const NavBar = () => {
           </a>
         ))}
         <button
-          className="mx-4 h-full flex items-center"
+          className={spacing + " h-full flex items-center"}
           onClick={() => {
             document.documentElement.setAttribute(
               "data-theme",
