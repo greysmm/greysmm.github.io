@@ -51,3 +51,8 @@ jobs:
           git config --global user.name "deployment"
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
           pnpm gh-pages -d ./apps/${{ matrix.value }}/dist -b deploy-${{ matrix.value }}
+      - uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: deploy-${{ matrix.value }}
+          folder: public
+          single-commit: true

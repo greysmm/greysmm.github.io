@@ -6,11 +6,9 @@ const Landing = () => {
     <Page>
       <Router>
         <Routes>
-          <Route path="/about" element={<h2>In progress...</h2>} />
-          <Route path="/projects" element={<h2>No projects yet :(</h2>} />
           <Route
             path="*"
-            element={<h2>Welcome to my website! More to come later...</h2>}
+            element={<h2>test</h2>}
           />
         </Routes>
       </Router>
