@@ -17,7 +17,7 @@ jobs:
       - id: matrix
         run: echo "workspaces=[$(ls apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8
           run_install: false
@@ -35,6 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        value: ${{ fromJSON(needs.predeploy.outputs.matrix) }}
     steps:
       - run: echo "${{ matrix.value }}"
