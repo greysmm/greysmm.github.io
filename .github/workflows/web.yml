@@ -54,4 +54,5 @@ jobs:
       - uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: deploy-${{ matrix.value }}
+          folder: .
           single-commit: true
