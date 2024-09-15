@@ -37,35 +37,13 @@ jobs:
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
           cp ./apps/core/dist/index.html ./apps/core/dist/404.html
           pnpm gh-pages -d ./apps/core/dist -b deploy-core
-  build:
-    needs: [ predeploy ]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.predeploy.outputs.matrix) }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          version: 8
-          run_install: false
-      - run: pnpm install
-      - run: pnpm --filter @greysmm.github.io/shared run build
-      - run: pnpm --filter @greysmm.github.io/${{ matrix.value }} run build
-      - run: |
-          git config --global user.email "deployment"
-          git config --global user.name "deployment"
-          git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
-          pnpm gh-pages -d ./apps/${{ matrix.value }}/dist -b deploy-${{ matrix.value }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './apps/${{ matrix.value }}/dist'
-          name: deploy-${{ matrix.value }}
+          path: './apps/core/dist'
+          name: deploy-core
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: deploy-${{ matrix.value }}
+          artifact_name: deploy-core
