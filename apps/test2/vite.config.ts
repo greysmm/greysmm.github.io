@@ -6,6 +6,10 @@ import tailwindcss from "tailwindcss";
 export default defineConfig({
   base: 'https://greysmm.github.io/test2/',
   plugins: [react()],
+  build: {
+    outDir: '../../dist/test2',
+    emptyOutDir: false, 
+  },
   css: {
     postcss: {
       plugins: [tailwindcss()],

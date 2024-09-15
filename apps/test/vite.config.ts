@@ -4,8 +4,12 @@ import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'https://greysmm.github.io/test/',
+  base: '/test/',
   plugins: [react()],
+  build: {
+    outDir: '../../dist/test',
+    emptyOutDir: false, 
+  },
   css: {
     postcss: {
       plugins: [tailwindcss()],

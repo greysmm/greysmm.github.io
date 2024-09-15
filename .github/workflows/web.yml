@@ -26,25 +26,23 @@ jobs:
           version: 8
           run_install: false
       - id: matrix
-        run: echo "values=[$(ls ./apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
+        run: echo "values=[$(ls apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
       - run: echo "${{ steps.matrix.outputs.values }}"
       - run: pnpm install
-      - run: pnpm --filter @greysmm.github.io/shared run build
-      - run: pnpm --filter @greysmm.github.io/core run build
+      - run: pnpm --stream -r run build
       - run: |
           git config --global user.email "deployment"
           git config --global user.name "deployment"
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
-          mkdir -p ./apps/core/dist/hello && cp ./apps/core/dist/index.html ./apps/core/dist/hello/index.html
-          echo greysmm.github.io/hi >> CNAME
-          pnpm gh-pages -d ./apps/core/dist -b deploy-core
+          cp ./apps/core/dist/index.html ./apps/core/dist/404.html
+          pnpm gh-pages -d dist -b deploy
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: './apps/core/dist'
-          name: deploy-core
+          path: 'dist'
+          name: deploy
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: deploy-core
+          artifact_name: deploy
