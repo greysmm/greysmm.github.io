@@ -51,3 +51,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: deploy-core
+      - run: echo $url
