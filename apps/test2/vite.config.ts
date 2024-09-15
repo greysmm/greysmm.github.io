@@ -4,7 +4,7 @@ import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/test2/',
+  base: 'https://greysmm.github.io/test2/',
   plugins: [react()],
   css: {
     postcss: {
