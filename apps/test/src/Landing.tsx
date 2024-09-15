@@ -1,4 +1,4 @@
-import { Page } from "@greysmm.github.io/shared";
+import { Page } from "@greysmm/shared";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 const Landing = () => {

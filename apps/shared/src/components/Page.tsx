@@ -9,9 +9,9 @@ type Props = React.ComponentProps<"div"> & {
 };
 
 const locArr: { icon?: any; label?: string; link: string }[] = [
-  { label: "Home", link: "greysmm.github.io/#" },
-  { label: "Projects", link: "greysmm.github.io/#/projects" },
-  { label: "About", link: "greysmm.github.io/#/about" },
+  { label: "Home", link: "https://greysmm.github.io/#" },
+  { label: "Projects", link: "https://greysmm.github.io/#/projects" },
+  { label: "About", link: "https://greysmm.github.io/#/about" },
 ];
 
 const NavBar = () => {

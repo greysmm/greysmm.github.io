@@ -1,1 +1,1 @@
-export * from "@greysmm.github.io/shared/tailwind.config.js";
+export * from "@greysmm/shared/tailwind.config.js";

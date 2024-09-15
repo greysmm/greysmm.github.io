@@ -1,6 +1,6 @@
 {
-  "name": "@greysmm.github.io/core",
-  "homepage": "https://greysmm.github.io/hi",
+  "name": "@greysmm/core",
+  "homepage": "https://greysmm.github.io",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@greysmm.github.io/shared": "workspace:^",
+    "@greysmm/shared": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"

@@ -1,1 +1,1 @@
-export * from "@greysmm.github.io/shared/postcss.config.js";
+export * from "@greysmm/shared/postcss.config.js";

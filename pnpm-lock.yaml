@@ -41,7 +41,7 @@ importers:
 
   apps/core:
     dependencies:
-      '@greysmm.github.io/shared':
+      '@greysmm/shared':
         specifier: workspace:^
         version: link:../shared
       react:
@@ -157,7 +157,7 @@ importers:
 
   apps/test:
     dependencies:
-      '@greysmm.github.io/shared':
+      '@greysmm/shared':
         specifier: workspace:^
         version: link:../shared
       react:
@@ -215,7 +215,7 @@ importers:
 
   apps/test2:
     dependencies:
-      '@greysmm.github.io/shared':
+      '@greysmm/shared':
         specifier: workspace:^
         version: link:../shared
       react:
