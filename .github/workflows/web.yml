@@ -34,7 +34,7 @@ jobs:
           git config --global user.email "deployment"
           git config --global user.name "deployment"
           git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
-          cp ./apps/core/dist/index.html ./apps/core/dist/404.html
+          cp dist/index.html dist/404.html
           pnpm gh-pages -d dist -b deploy
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
