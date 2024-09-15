@@ -63,6 +63,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './apps/${{ matrix.value }}/dist'
+          name: deploy-${{ matrix.value }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
