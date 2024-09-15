@@ -17,32 +17,21 @@ on:
 jobs:
   predeploy:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.matrix.outputs.values }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
           version: 8
           run_install: false
-      - id: matrix
-        run: echo "values=[$(ls apps/ | grep -v -e '^shared$' -e '^core$' | sed 's/.*/"&"/' | paste -sd, -)]" >> $GITHUB_OUTPUT
-      - run: echo "${{ steps.matrix.outputs.values }}"
       - run: pnpm install
       - run: pnpm --stream -r run build
-      - run: |
-          git config --global user.email "deployment"
-          git config --global user.name "deployment"
-          git remote set-url origin https://greysmm:${{ secrets.TOKEN }}@github.com/greysmm/greysmm.github.io.git
-          cp dist/index.html dist/404.html
-          pnpm gh-pages -d dist -b deploy
+      - run: cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: 'dist'
           name: deploy
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
         with:
           artifact_name: deploy
