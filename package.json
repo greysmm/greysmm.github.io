@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
-    "dev": "pnpm --filter @greysmm/core dev",
-    "predeploy": "pnpm install && pnpm --filter @greysmm/shared run build && pnpm --filter @greysmm/core run build"
+    "dev": "pnpm install && pnpm --stream -r run build && pnpm --filter @greysmm/core preview"
   },
   "keywords": [],
   "author": "",

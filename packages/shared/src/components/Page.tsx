@@ -26,14 +26,16 @@ const NavBar = () => {
   }
   return (
     <div className="flex p-4 border-theme">
-      <a href="https://github.com/greysmm/greysmm.github.io">
-        <img
-          src={darkmode ? DarkSvg : LightSvg}
-          width={270}
-          height={75}
-          alt="Grey's Magnificent Monorepo"
-        />
-      </a>
+      <button>
+        <a href="https://github.com/greysmm/greysmm.github.io">
+          <img
+            src={darkmode ? DarkSvg : LightSvg}
+            width={270}
+            height={75}
+            alt="Grey's Magnificent Monorepo"
+          />
+        </a>
+      </button>
       <div className="flex justify-end w-full">
         {locArr.map((item, index) => (
           <a

@@ -6,8 +6,8 @@ import tailwindcss from "tailwindcss";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: '../../dist',
-    emptyOutDir: false, 
+    outDir: "../../dist",
+    emptyOutDir: false,
   },
   css: {
     postcss: {

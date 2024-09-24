@@ -22,10 +22,10 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 8
-          run_install: false
-      - run: pnpm install
+      - run: pnpm install --prod
       - run: pnpm --stream -r run build
       - run: cp dist/index.html dist/404.html
+      - run: cp models/model.json dist/model.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
