@@ -1,1 +1,1 @@
-export { Page } from "./components/Page";
+export { Page, PageUnbounded } from "./components/Page";

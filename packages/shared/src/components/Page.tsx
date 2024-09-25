@@ -70,13 +70,32 @@ const NavBar = () => {
   );
 };
 
-export const Page = ({ children, ...props }: Props) => {
+export const Page = ({ children, className = "", ...props }: Props) => {
   return (
     <div className="p-4 h-full min-h-screen everything">
       <NavBar />
-      <div className="p-4 mt-4 text-center border-theme" {...props}>
+      <div
+        className={"p-4 mt-4 text-center border-theme " + className}
+        {...props}
+      >
         {children}
       </div>
+    </div>
+  );
+};
+
+export const PageUnbounded = ({
+  children,
+  className = "",
+  ...props
+}: Props) => {
+  return (
+    <div
+      className={"p-4 h-full min-h-screen everything " + className}
+      {...props}
+    >
+      <NavBar />
+      {children}
     </div>
   );
 };
