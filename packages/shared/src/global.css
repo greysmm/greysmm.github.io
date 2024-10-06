@@ -37,6 +37,11 @@
   border-width: 2px;
 }
 
+.bg-theme {
+  color: var(--color);
+  background-color: var(--bg-color);
+}
+
 .Landing {
   display: flex;
   flex-direction: column;

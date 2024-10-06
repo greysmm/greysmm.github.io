@@ -6,6 +6,7 @@ import SunSvg from "../assets/sun.svg";
 
 type Props = React.ComponentProps<"div"> & {
   children: React.ReactNode;
+  linkAppend: string;
 };
 
 const locArr: { icon?: any; label?: string; link: string }[] = [
@@ -14,7 +15,7 @@ const locArr: { icon?: any; label?: string; link: string }[] = [
   { label: "About", link: "https://greysmm.github.io/#/about" },
 ];
 
-const NavBar = () => {
+const NavBar = (inputs: { linkAppend: string }) => {
   const [darkmode, setDarkmode] = useState<boolean | undefined>();
   const spacing = window.innerWidth < 600 ? "mx-2" : "mx-4";
   if (
@@ -27,7 +28,11 @@ const NavBar = () => {
   return (
     <div className="flex p-4 border-theme">
       <button>
-        <a href="https://github.com/greysmm/greysmm.github.io">
+        <a
+          href={
+            "https://github.com/greysmm/greysmm.github.io" + inputs.linkAppend
+          }
+        >
           <img
             src={darkmode ? DarkSvg : LightSvg}
             width={270}
@@ -70,10 +75,15 @@ const NavBar = () => {
   );
 };
 
-export const Page = ({ children, className = "", ...props }: Props) => {
+export const Page = ({
+  children,
+  className = "",
+  linkAppend = "",
+  ...props
+}: Props) => {
   return (
     <div className="p-4 h-full min-h-screen everything">
-      <NavBar />
+      <NavBar linkAppend={linkAppend} />
       <div
         className={"p-4 mt-4 text-center border-theme " + className}
         {...props}
@@ -87,6 +97,7 @@ export const Page = ({ children, className = "", ...props }: Props) => {
 export const PageUnbounded = ({
   children,
   className = "",
+  linkAppend = "",
   ...props
 }: Props) => {
   return (
@@ -94,7 +105,7 @@ export const PageUnbounded = ({
       className={"p-4 h-full min-h-screen everything " + className}
       {...props}
     >
-      <NavBar />
+      <NavBar linkAppend={linkAppend} />
       {children}
     </div>
   );

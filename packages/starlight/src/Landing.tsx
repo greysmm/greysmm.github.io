@@ -4,7 +4,7 @@ import Starlight from "./starlight";
 
 const Landing = () => {
   return (
-    <PageUnbounded>
+    <PageUnbounded linkAppend="/tree/main/packages/starlight">
       <Router>
         <Routes>
           <Route path="*" element={<Starlight />} />
