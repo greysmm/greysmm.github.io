@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

@@ -182,7 +182,6 @@ const Star = ({
       }
     }
 
-    // TODO: make this global
     setInterval(changePicture, 1000 / fps);
 
     onFinish();
@@ -203,6 +202,9 @@ const Modal = ({ onClose, children, className = "" }) => {
     >
       <div
         className={"p-4 bg-theme border-theme " + className}
+        style={
+          window.innerWidth < 600 ? {} : { maxWidth: window.innerWidth / 2 }
+        }
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -258,7 +260,11 @@ const ControlPanel = ({ data, formState, setFormState }) => {
             {showTooltip === key && (
               <div
                 className="absolute bg-theme border-theme"
-                style={{ width: window.innerWidth / 4 }}
+                style={
+                  window.innerWidth < 600
+                    ? {}
+                    : { maxWidth: window.innerWidth / 4 }
+                }
               >
                 {data[key][2]}
               </div>
@@ -284,6 +290,20 @@ const ControlPanel = ({ data, formState, setFormState }) => {
           </div>
         ))}
       </div>
+      <div className="pt-0.5">
+        {Object.keys(data).map((key) => (
+          <div key={key + "_reset"} className="btn m-1 border-theme">
+            <button
+              className="btn px-1"
+              onClick={() =>
+                setFormState({ ...formState, [key]: initialFormState[key] })
+              }
+            >
+              Reset
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -292,6 +312,7 @@ const Starlight = () => {
   const [model, setModel] = useState<tf.LayersModel | undefined>(undefined);
   const [stars, setStars] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const paramsObj = {};
@@ -327,7 +348,7 @@ const Starlight = () => {
             setFormState={setFormState}
           />
           <button
-            className="text-center w-full border-theme mt-2 p-2"
+            className="btn text-center w-full border-theme mt-2 p-2"
             onClick={() => {
               setSearchParams(
                 createSearchParams(
@@ -344,6 +365,35 @@ const Starlight = () => {
           >
             Apply Changes
           </button>
+        </Modal>
+      )}
+      {infoModalOpen && (
+        <Modal onClose={() => setInfoModalOpen(false)} className="text-xs">
+          Welcome to Project Starlight! If you are curious about the code for
+          this page, click the logo on the top left! I started this project
+          because I was curious how viable it was to train a diffusion model
+          that could perform inference (i.e. generate images) in the user's
+          browser, without any server side assistance as basically all current
+          web diffusion builds seem to be doing. As is to be expected, I had to
+          make a lot of sacrifices with the quality of the model in order to get
+          it to the point where it would not crash the user's browser, though
+          much of the complexity comes from the fact that I wanted to generate
+          not just one but several stars, and to have them twinkle as real stars
+          do.
+          <br />
+          <br />
+          So how does this actually work? Well, every time the model generates a
+          star, it is actually generating a batch of different stars; I trained
+          the model with downscaled resolution images of real stars for a
+          relatively low number of epochs, and the model also did not have many
+          trainable parameters, thus these stars just look very similar while
+          retaining enough variance to apparently "twinkle" as each star is
+          swapped out for the next at a high rate (you can essentially think of
+          each star in the batch as a frame of a video or gif). The diffusion
+          process makes it so that no generated star is the same, and I do some
+          post processing to make the stars look better (e.g. swapping around
+          RGB channels so that not all of the stars are the same color). The
+          star is then placed at a random spot on the container div.
         </Modal>
       )}
       <div id="container" className="p-4 mt-4 text-center bg-black">
@@ -364,12 +414,20 @@ const Starlight = () => {
             );
           })}
       </div>
-      <button
-        onClick={() => setModalOpen(true)}
-        className="p-4 mt-4 text-center border-theme"
-      >
-        Open Control Panel
-      </button>
+      <div className="flex w-full gap-4">
+        <button
+          onClick={() => setInfoModalOpen(true)}
+          className="btn p-4 mt-4 w-full text-center border-theme"
+        >
+          What is this?
+        </button>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="btn p-4 mt-4 w-full text-center border-theme"
+        >
+          Open Control Panel
+        </button>
+      </div>
     </>
   );
 };

@@ -9,8 +9,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --color: #000000;
-  --bg-color: #ffffff;
+  --color: #ffffff;
+  --bg-color: #000000;
   color: var(--color);
   background-color: var(--bg-color);
   --secondary-color: #4400ff;
@@ -23,8 +23,8 @@
 }
 
 [data-theme="dark"] {
-  --color: #ffffff;
-  --bg-color: #000000;
+  --color: #000000;
+  --bg-color: #ffffff;
 }
 
 .everything {
@@ -46,4 +46,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.btn:hover {
+  background-color: gray;
 }

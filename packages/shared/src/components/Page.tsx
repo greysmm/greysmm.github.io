@@ -63,7 +63,7 @@ const NavBar = (inputs: { linkAppend: string }) => {
           }}
         >
           <img
-            src={darkmode ? MoonSvg : SunSvg}
+            src={darkmode ? SunSvg : MoonSvg}
             width={40}
             height={40}
             style={{ minWidth: "20px" }}
