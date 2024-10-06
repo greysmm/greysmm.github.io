@@ -203,7 +203,7 @@ const Modal = ({ onClose, children, className = "" }) => {
       <div
         className={"p-4 bg-theme border-theme " + className}
         style={
-          window.innerWidth < 600 ? {} : { maxWidth: window.innerWidth / 2 }
+          window.innerWidth < 600 ? {} : { maxWidth: window.innerWidth / 1.5 }
         }
         onClick={(e) => e.stopPropagation()}
       >

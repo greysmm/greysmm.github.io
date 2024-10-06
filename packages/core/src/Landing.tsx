@@ -38,6 +38,7 @@ const Landing = () => {
                       Project Starlight
                       <span className="text-xs">
                         <br />
+                        <br />
                         Now with mobile support (laggy
                         <br />
                         until all stars are generated)!
