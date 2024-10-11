@@ -17,7 +17,7 @@ const BgDiv = ({ children, image }) => (
 );
 
 const Text = ({ text }) => (
-  <div className="p-2 border-theme bg-theme">
+  <div className="p-4 border-theme bg-theme">
     <h2
       style={window.innerWidth < 600 ? {} : { maxWidth: window.innerWidth / 2 }}
     >

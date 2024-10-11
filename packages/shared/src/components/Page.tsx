@@ -85,7 +85,7 @@ export const Page = ({
     <div className="p-4 h-full min-h-screen everything">
       <NavBar linkAppend={linkAppend} />
       <div
-        className={"p-4 mt-4 text-center border-theme " + className}
+        className={"p-4 mt-4 border-theme " + className}
         {...props}
       >
         {children}
