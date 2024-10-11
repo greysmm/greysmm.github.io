@@ -2,6 +2,8 @@ import { Page } from "@greysmm/shared";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import landingImage from "./assets/landing.jpg";
 import aboutImage from "./assets/about.jpg";
+import projectsImage from "./assets/projects.jpg";
+
 
 const BgDiv = ({ children, image }) => (
   <div
@@ -46,9 +48,9 @@ const Landing = () => {
           <Route
             path="/projects"
             element={
-              <BgDiv image={""}>
+              <BgDiv image={projectsImage}>
                 <a href="/starlight">
-                  <button className="btn text-lg border-theme p-4 mt-4">
+                  <button className="btn text-lg bg-theme border-theme p-4 mt-4">
                     Project Starlight
                     <span className="text-xs">
                       <br />
