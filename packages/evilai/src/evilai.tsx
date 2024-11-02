@@ -4,6 +4,14 @@ import ReactMarkdown from "react-markdown";
 
 const useIndexedDBCache = false;
 const selectedModel = "Hermes-3-Llama-3.1-8B-q4f32_1-MLC";
+const initMsg = [
+  {
+    role: "system",
+    content:
+      "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
+  },
+  { role: "user", content: "Hello!" },
+]
 
 webllm.prebuiltAppConfig;
 const engine = new webllm.MLCEngine({
@@ -12,22 +20,17 @@ const engine = new webllm.MLCEngine({
 });
 
 const LLM = () => {
-  const [loadingMsg, setLoadingMsg] = useState<string | undefined>(undefined);
+  const [loadingMsg, setLoadingMsg] = useState<string>('Loading...');
   const [sendDisabled, setSendDisabled] = useState(true);
   const [msgToSend, setMsgToSend] = useState("");
-  const [messages, setMessages] = useState<any>([
-    {
-      role: "system",
-      content:
-        "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
-    },
-    { role: "user", content: "Hello!" },
-  ]);
+  const [messages, setMessages] = useState<any>(initMsg);
+  // TODO: Make control panel for model parameters
+  const [temperature, _] = useState(0.65)
 
   const generate = async (messages: any) => {
     const chunks = await engine.chat.completions.create({
       messages,
-      temperature: 0.65,
+      temperature,
       stream: true,
     });
 
@@ -48,10 +51,16 @@ const LLM = () => {
 
   const createEngine = async () => {
     engine.setInitProgressCallback((p) => {
-      setLoadingMsg(p.text);
+      setLoadingMsg(p.text)
+      console.log(p)
     });
-    await engine.reload(selectedModel);
-    await generate(messages);
+    try {
+      await engine.reload(selectedModel);     
+      await generate(messages); 
+    } catch (e) {
+      console.log(e)
+      setLoadingMsg((e as any).toString())
+    }
   };
 
   useEffect(() => {
@@ -71,7 +80,7 @@ const LLM = () => {
         );
       })}
       <div className="justify-center text-center">
-        {messages.length < 3 && <div>{loadingMsg || "Loading..."}</div>}
+        {messages.length < 3 && <div>{loadingMsg}</div>}
         <div className="m-0">
           <textarea
             value={msgToSend}
@@ -101,6 +110,15 @@ const LLM = () => {
         >
           Submit
         </button>
+        <button
+          disabled={sendDisabled}
+          className="border-theme ml-4 p-2"
+          onClick={() => {
+            setSendDisabled(true)
+            setMessages(initMsg)
+            generate(initMsg)
+          }}
+        >Clear</button>
       </div>
     </div>
   );

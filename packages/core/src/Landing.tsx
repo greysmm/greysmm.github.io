@@ -54,6 +54,8 @@ const Landing = () => {
                     <span className="text-xs">
                       <br />
                       <br />
+                      Starry night sky generator!
+                      <br />
                       Now with mobile support (laggy
                       <br />
                       until all stars are generated)!
@@ -65,11 +67,12 @@ const Landing = () => {
                     Evil AI (Beta)
                     <span className="text-xs">
                       <br />
+                      <br />
                       Only guaranteed w/ Chrome
                       <br />
                       (no incognito, default settings)
                       <br />
-                      Or Firefox Nightly!
+                      or Firefox Nightly!
                     </span>
                   </button>
                 </a>
