@@ -371,15 +371,15 @@ const Starlight = () => {
         <Modal onClose={() => setInfoModalOpen(false)} className="text-xs">
           Welcome to Project Starlight! If you are curious about the code for
           this page, click the logo on the top left! I started this project
-          because I was curious how viable it was to train a diffusion model
-          that could perform inference (i.e. generate images) in the user's
-          browser, without any server side assistance as basically all current
-          web diffusion builds seem to be doing. As is to be expected, I had to
-          make a lot of sacrifices with the quality of the model in order to get
-          it to the point where it would not crash the user's browser, though
-          much of the complexity comes from the fact that I wanted to generate
-          not just one but several stars, and to have them twinkle as real stars
-          do.
+          because I was curious how viable it was to train a (pseudo)diffusion
+          model that could perform inference (i.e. generate images) in the
+          user's browser, without any server side assistance as basically all
+          current web diffusion builds seem to be doing. As is to be expected, I
+          had to make a lot of sacrifices with the quality of the model in order
+          to get it to the point where it would not crash the user's browser,
+          though much of the complexity comes from the fact that I wanted to
+          generate not just one but several stars, and to have them twinkle as
+          real stars do.
           <br />
           <br />
           So how does this actually work? Well, every time the model generates a

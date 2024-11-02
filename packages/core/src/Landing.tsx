@@ -4,7 +4,6 @@ import landingImage from "./assets/landing.jpg";
 import aboutImage from "./assets/about.jpg";
 import projectsImage from "./assets/projects.jpg";
 
-
 const BgDiv = ({ children, image }) => (
   <div
     className="w-full h-full flex flex-wrap gap-4 p-4 items-center justify-center bg-center"
@@ -58,6 +57,19 @@ const Landing = () => {
                       Now with mobile support (laggy
                       <br />
                       until all stars are generated)!
+                    </span>
+                  </button>
+                </a>
+                <a href="/evilai">
+                  <button className="btn text-lg bg-theme border-theme p-4 mt-4">
+                    Evil AI (Beta)
+                    <span className="text-xs">
+                      <br />
+                      Only guaranteed w/ Chrome
+                      <br />
+                      (no incognito, default settings)
+                      <br />
+                      Or Firefox Nightly!
                     </span>
                   </button>
                 </a>
