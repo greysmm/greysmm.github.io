@@ -72,11 +72,11 @@ const LLM = () => {
       })}
       <div className="justify-center text-center">
         {messages.length < 3 && <div>{loadingMsg || "Loading..."}</div>}
-        <div>
+        <div className="m-0">
           <textarea
             value={msgToSend}
             onChange={(e) => setMsgToSend(e.target.value)}
-            className="text-black p-4 border-black mx-4 mt-4 border-2"
+            className="text-black p-4 border-black m-4 border-2"
             style={
               window.innerWidth < 600 ? {} : { width: window.innerWidth / 1.5 }
             }
