@@ -97,7 +97,7 @@ importers:
         specifier: ^5.4.1
         version: 5.4.3(@types/node@22.5.4)
 
-  packages/evilai:
+  packages/evil_ai:
     dependencies:
       '@greysmm/shared':
         specifier: workspace:^

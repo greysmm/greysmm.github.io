@@ -4,10 +4,10 @@ import tailwindcss from "tailwindcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/evilai/",
+  base: "/evil_ai/",
   plugins: [react()],
   build: {
-    outDir: "../../dist/evilai",
+    outDir: "../../dist/evil_ai",
     emptyOutDir: false,
   },
   css: {
