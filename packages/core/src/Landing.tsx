@@ -62,7 +62,7 @@ const Landing = () => {
                     </span>
                   </button>
                 </a>
-                <a href="/evil_ai">
+                {/* <a href="/evil_ai">
                   <button className="btn text-lg bg-theme border-theme p-4 mt-4">
                     Evil AI (Beta)
                     <span className="text-xs">
@@ -75,7 +75,7 @@ const Landing = () => {
                       or Firefox Nightly!
                     </span>
                   </button>
-                </a>
+                </a> */}
               </BgDiv>
             }
           />
