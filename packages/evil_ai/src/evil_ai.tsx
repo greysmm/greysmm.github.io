@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const useIndexedDBCache = false;
-const selectedModel = "Hermes-3-Llama-3.1-8B-q4f32_1-MLC";
+const selectedModel = 'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k'; //"Hermes-3-Llama-3.1-8B-q4f32_1-MLC";
 const initMsg = [
   {
     role: "system",
@@ -13,7 +13,6 @@ const initMsg = [
   { role: "user", content: "Hello!" },
 ];
 
-webllm.prebuiltAppConfig;
 const engine = new webllm.MLCEngine({
   initProgressCallback: () => {},
   appConfig: { ...webllm.prebuiltAppConfig, useIndexedDBCache },
