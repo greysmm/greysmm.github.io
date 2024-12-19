@@ -1,0 +1,35 @@
+diff --git a/lib/index.js b/lib/index.js
+index c7446512c55983fffb9b7c5c4dad943d1bbf74c7..937ebc9a7f52a1af93de05a12502f725ee04a7dc 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -3350,18 +3350,18 @@ var require$$2 = /*@__PURE__*/getAugmentedNamespace(_rollup_plugin_ignore_empty_
+                             `limit=${computeMB(adapter.limits.maxStorageBufferBindingSize)}. `);
+                     }
+                 }
+-                const requiredMaxComputeWorkgroupStorageSize = 32 << 10;
+-                if (requiredMaxComputeWorkgroupStorageSize > adapter.limits.maxComputeWorkgroupStorageSize) {
+-                    throw Error(`Cannot initialize runtime because of requested maxComputeWorkgroupStorageSize ` +
+-                        `exceeds limit. requested=${requiredMaxComputeWorkgroupStorageSize}, ` +
+-                        `limit=${adapter.limits.maxComputeWorkgroupStorageSize}. `);
+-                }
+-                const requiredMaxStorageBuffersPerShaderStage = 10; // default is 8
+-                if (requiredMaxStorageBuffersPerShaderStage > adapter.limits.maxStorageBuffersPerShaderStage) {
+-                    throw Error(`Cannot initialize runtime because of requested maxStorageBuffersPerShaderStage ` +
+-                        `exceeds limit. requested=${requiredMaxStorageBuffersPerShaderStage}, ` +
+-                        `limit=${adapter.limits.maxStorageBuffersPerShaderStage}. `);
+-                }
++                const requiredMaxComputeWorkgroupStorageSize = Math.min(32 << 10, adapter.limits.maxComputeWorkgroupStorageSize);
++                // if (requiredMaxComputeWorkgroupStorageSize > adapter.limits.maxComputeWorkgroupStorageSize) {
++                //     throw Error(`Cannot initialize runtime because of requested maxComputeWorkgroupStorageSize ` +
++                //         `exceeds limit. requested=${requiredMaxComputeWorkgroupStorageSize}, ` +
++                //         `limit=${adapter.limits.maxComputeWorkgroupStorageSize}. `);
++                // }
++                const requiredMaxStorageBuffersPerShaderStage = Math.min(10, adapter.limits.maxStorageBuffersPerShaderStage); // default is 8
++                // if (requiredMaxStorageBuffersPerShaderStage > adapter.limits.maxStorageBuffersPerShaderStage) {
++                //     throw Error(`Cannot initialize runtime because of requested maxStorageBuffersPerShaderStage ` +
++                //         `exceeds limit. requested=${requiredMaxStorageBuffersPerShaderStage}, ` +
++                //         `limit=${adapter.limits.maxStorageBuffersPerShaderStage}. `);
++                // }
+                 const requiredFeatures = [];
+                 // Always require f16 if available
+                 if (adapter.features.has("shader-f16")) {

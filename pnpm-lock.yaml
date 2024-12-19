@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@mlc-ai/web-llm@0.2.77':
+    hash: ohelx2c33gwpmm4r7lueunaw7e
+    path: patches/@mlc-ai__web-llm@0.2.77.patch
+
 importers:
 
   .:
@@ -104,7 +109,7 @@ importers:
         version: link:../shared
       '@mlc-ai/web-llm':
         specifier: ^0.2.77
-        version: 0.2.77
+        version: 0.2.77(patch_hash=ohelx2c33gwpmm4r7lueunaw7e)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1356,11 +1361,12 @@ packages:
     resolution: {integrity: sha512-HZpPoABogPvjeJOdzCOSJsXeL/SMCBgBZMVC3X3d7YYp2gf31MfxhUoYUNwf1ERPJOnQc0wkFn9trqI6ZEdZuA==}
     dev: true
 
-  /@mlc-ai/web-llm@0.2.77:
+  /@mlc-ai/web-llm@0.2.77(patch_hash=ohelx2c33gwpmm4r7lueunaw7e):
     resolution: {integrity: sha512-AD3uQNfB+Pjti2h+DAQ2IDOG3TDkfn8ily1kn1wKij7+Dtv1LBeq6XnT3nsHwrLci9opvxejVXWPzlyA7E6dEw==}
     dependencies:
       loglevel: 1.9.2
     dev: false
+    patched: true
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
