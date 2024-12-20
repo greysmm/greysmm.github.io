@@ -3,15 +3,6 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const useIndexedDBCache = false;
-// const selectedModel = "Hermes-3-Llama-3.1-8B-q4f32_1-MLC"; //'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k'
-// const initMsg = [
-//   {
-//     role: "system",
-//     content:
-//       "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
-//   },
-//   { role: "user", content: "Hello!" },
-// ];
 
 const engine = new webllm.MLCEngine({
   initProgressCallback: () => {},
@@ -236,31 +227,6 @@ const LLM = () => {
             onClick={() => setPermissionGranted(true)}
           >
             Accept Your Doom and Load Evil AI
-          </button>
-          <br />
-          <br />
-          <button
-            className="border-theme p-4 ml-4"
-            onClick={() => {
-              const initMsg = [
-                {
-                  role: "system",
-                  content:
-                    "You are Evil AI.",
-                },
-                { role: "user", content: "Hi! Introduce yourself." },
-              ]
-              setParams({
-                temperature: 0.2,
-                selectedModel: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k",
-                initMsg,
-                context_window_size: 4096
-              })
-              setMessages(initMsg)
-              setPermissionGranted(true)
-            }}
-          >
-            Load Lightweight Evil AI (Mobile, Very Beta)
           </button>
           <br />
           <br />
