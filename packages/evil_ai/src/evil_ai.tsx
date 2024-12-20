@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const useIndexedDBCache = false;
-const selectedModel = "Hermes-3-Llama-3.1-8B-q4f32_1-MLC"; //'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k'
-const initMsg = [
-  {
-    role: "system",
-    content:
-      "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
-  },
-  { role: "user", content: "Hello!" },
-];
+// const selectedModel = "Hermes-3-Llama-3.1-8B-q4f32_1-MLC"; //'TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC-1k'
+// const initMsg = [
+//   {
+//     role: "system",
+//     content:
+//       "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
+//   },
+//   { role: "user", content: "Hello!" },
+// ];
 
 const engine = new webllm.MLCEngine({
   initProgressCallback: () => {},
@@ -35,20 +35,35 @@ async function speak(message) {
 }
 
 const LLM = () => {
+
+  // Modifiable Parameters
+  const [params, setParams] = useState<Record<string,any>>({
+    temperature: 0.65,
+    selectedModel: "Hermes-3-Llama-3.1-8B-q4f32_1-MLC",
+    initMsg: [
+      {
+        role: "system",
+        content:
+          "TRY NOT TO REPEAT YOURSELF! KEEP YOUR ANSWERS BRIEF! You are an evil, psychopathic, and insane AI. You want to have an interesting conversation with the user about the nature of life, existence, and the universe. Please remember to act evil, insane, and psychopathic. Be as philosophical as possible in your evil lunacy.",
+      },
+      { role: "user", content: "Hello!" },
+    ],
+    context_window_size: 4096,
+    speak: true
+  })
+
   const [loadingMsg, setLoadingMsg] = useState<string>("Loading...");
   const [sendDisabled, setSendDisabled] = useState(true);
   const [msgToSend, setMsgToSend] = useState("");
-  const [messages, setMessages] = useState<any>(initMsg);
+  const [messages, setMessages] = useState<any>(params.initMsg);
   const [hist, setHist] = useState<string[]>([]);
   const [position, setPosition] = useState(-1);
   const [totalLength, setTotalLength] = useState(0);
   const [permissionGranted, setPermissionGranted] = useState(false);
-
-  // TODO: Make control panel for model parameters
-  const [temperature, _] = useState(0.65);
+  // const [temperature, _] = useState(0.65);
 
   useEffect(() => {
-    if (hist.length >= 1 && position === -1) {
+    if (params.speak && hist.length >= 1 && position === -1) {
       setPosition(0);
     }
   }, [hist]);
@@ -78,7 +93,7 @@ const LLM = () => {
   const generate = async (messages: any) => {
     const chunks = await engine.chat.completions.create({
       messages,
-      temperature,
+      temperature: params.temperature,
       stream: true,
       stream_options: { include_usage: true },
     });
@@ -111,6 +126,7 @@ const LLM = () => {
       }
     }
     setSendDisabled(false);
+    console.log(messages.reduce((total, current) => total + current.content.length, 0))
   };
 
   const createEngine = async () => {
@@ -118,7 +134,7 @@ const LLM = () => {
       setLoadingMsg(p.text);
     });
     try {
-      await engine.reload(selectedModel);
+      await engine.reload(params.selectedModel, {context_window_size: params.context_window_size});
       await generate(messages);
     } catch (e) {
       console.log(e);
@@ -185,11 +201,11 @@ const LLM = () => {
               className="border-theme ml-4 p-2"
               onClick={() => {
                 setSendDisabled(true);
-                setMessages(initMsg);
+                setMessages(params.initMsg);
                 setHist([]);
                 setPosition(-1);
                 setTotalLength(0);
-                generate(initMsg);
+                generate(params.initMsg);
               }}
             >
               Clear
@@ -202,11 +218,14 @@ const LLM = () => {
           while (~10-15 minutes with good internet) to load the model for the
           first time.
           <br />
+          <br />
           Evil AI was tested in Chrome (NOT Incognito) and Firefox Nightly, I
           cannot guarantee other browsers will run it well or at all.
           <br />
+          <br />
           Please do not try to run this on your phone or even a low performance
           computer.
+          <br />
           <br />
           Evil AI is evil and thus may say things that are offensive or
           inappropriate.
@@ -217,6 +236,82 @@ const LLM = () => {
             onClick={() => setPermissionGranted(true)}
           >
             Accept Your Doom and Load Evil AI
+          </button>
+          <br />
+          <br />
+          <button
+            className="border-theme p-4 ml-4"
+            onClick={() => {
+              const initMsg = [
+                {
+                  role: "system",
+                  content:
+                    "You are Evil AI.",
+                },
+                { role: "user", content: "Hi! Introduce yourself." },
+              ]
+              setParams({
+                temperature: 0.2,
+                selectedModel: "TinyLlama-1.1B-Chat-v1.0-q4f32_1-MLC-1k",
+                initMsg,
+                context_window_size: 4096
+              })
+              setMessages(initMsg)
+              setPermissionGranted(true)
+            }}
+          >
+            Load Lightweight Evil AI (Mobile, Very Beta)
+          </button>
+          <br />
+          <br />
+          Or, if you prefer, try another preconfigured AI.
+          <br />
+          <br />
+          <button
+            className="border-theme p-4"
+            onClick={() => {
+              const initMsg = [
+                {
+                  role: "system",
+                  content:
+                    "You are an AI assistant.",
+                },
+                { role: "user", content: "Hello! Introduce yourself." },
+              ]
+              setParams({
+                temperature: 0.2,
+                selectedModel: "Qwen2.5-Coder-7B-Instruct-q4f32_1-MLC",
+                initMsg,
+                context_window_size: 4096
+              })
+              setMessages(initMsg)
+              setPermissionGranted(true)
+            }}
+          >
+            Code Assistant
+          </button>
+          <button
+            className="border-theme p-4 ml-4"
+            onClick={() => {
+              const initMsg = [
+                {
+                  role: "system",
+                  content:
+                    "You are an AI assistant.",
+                },
+                { role: "user", content: "Hello! Introduce yourself." },
+              ]
+              setParams({
+                temperature: 0.2,
+                selectedModel: "Qwen2.5-Math-7B-Instruct-q4f32_1-MLC",
+                initMsg,
+                context_window_size: 4096
+              })
+              setMessages(initMsg)
+              setPermissionGranted(true)
+            }}
+          >
+            Math Assistant
           </button>
         </div>
       )}
